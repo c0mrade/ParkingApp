@@ -9,7 +9,5 @@ class CreateParkingTransaction < ActiveRecord::Migration[5.2]
     # optimize a) checking if ticket exists during validations
     # b) ticket lookup for check out process
     add_index :parking_transactions, [:active, :ticket], unique: true
-    # optimize checking if garage is full
-    add_index :parking_transactions, [:active, :floor_id], unique: true
   end
 end

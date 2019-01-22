@@ -4,10 +4,9 @@ class ParkingTransaction < ApplicationRecord
   # associations
   belongs_to :floor
   # validations
+  validates :floor, presence: true
   validates :ticket, presence: true, uniqueness: { scope: :active }
   validate :garage_full
-  # delegations
-  delegate :garage, to: :floor
   # scopes
   scope :active, -> { where(active: true) }
   # callbacks
@@ -21,6 +20,7 @@ class ParkingTransaction < ApplicationRecord
   attr_writer :ticket
 
   def garage_full
+    garage = floor.garage
     if ParkingTransaction.active.where(floor: garage.floors).count == garage.capacity
       errors[:base] << 'Garage is full'
     end

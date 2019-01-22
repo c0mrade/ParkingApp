@@ -5,6 +5,6 @@ class Garage < ApplicationRecord
   has_many :parking_transactions, through: :floors
 
   def capacity
-    floors.sum(&:number_of_spaces)
+    floors&.sum(&:number_of_spaces) || 0
   end
 end

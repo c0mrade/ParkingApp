@@ -15,6 +15,7 @@
 /log/*
 /tmp/*
 tmp/*
+log/*
 !/log/.keep
 !/tmp/.keep
 

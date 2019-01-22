@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2019_01_21_125221) do
     t.integer "floor_id"
     t.boolean "active", default: true, null: false
     t.string "ticket", null: false
-    t.index ["active", "floor_id"], name: "index_parking_transactions_on_active_and_floor_id", unique: true
     t.index ["active", "ticket"], name: "index_parking_transactions_on_active_and_ticket", unique: true
     t.index ["floor_id"], name: "index_parking_transactions_on_floor_id"
   end
