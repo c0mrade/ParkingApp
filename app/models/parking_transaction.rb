@@ -8,7 +8,7 @@ class ParkingTransaction < ApplicationRecord
   validates :ticket, presence: true, uniqueness: { scope: :active }
   # delegations
   delegate :garage, to: :floor, allow_nil: true
-  validate :garage_full
+  validate :garage_full, if: :new_record?
   # scopes
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
@@ -25,7 +25,6 @@ class ParkingTransaction < ApplicationRecord
   end
 
   def garage_full
-    return unless new_record?
     if ParkingTransaction.active.where(floor: garage.floors).count == garage.capacity
       errors[:base] << 'Garage is full'
     end

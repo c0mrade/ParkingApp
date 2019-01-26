@@ -1,0 +1,21 @@
+<h2>LIST OF GARAGES</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Garage names</th>
+      <th scope="col">Number of floors</th>
+      <th scope="col">Actions</th>
+    <tr>
+  </thead>
+<tbody>
+  <% @garages.each do |garage| %>
+    <tr>
+      <th scope="row"><%= garage.id %></th>
+      <td><%= garage.name %></td>
+      <td><%= garage.floor_count %></td>
+      <td>Edit | <%= link_to 'Delete', garage_path(garage), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
