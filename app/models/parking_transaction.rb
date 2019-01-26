@@ -6,21 +6,26 @@ class ParkingTransaction < ApplicationRecord
   # validations
   validates :floor, presence: true
   validates :ticket, presence: true, uniqueness: { scope: :active }
+  # delegations
+  delegate :garage, to: :floor, allow_nil: true
   validate :garage_full
   # scopes
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
   # callbacks
-  before_validation do
-    self[:ticket] = SecureRandom.uuid
-  end
+  before_validation :generate_ticket
 
   private
   # make sure ticket isn't modified by accident, should be geenrated
   # there are additional things we can do to make this truly unmutable but it was not necessary now
   attr_writer :ticket
 
+  def generate_ticket
+    self[:ticket] = SecureRandom.uuid
+  end
+
   def garage_full
-    garage = floor.garage
+    return unless new_record?
     if ParkingTransaction.active.where(floor: garage.floors).count == garage.capacity
       errors[:base] << 'Garage is full'
     end

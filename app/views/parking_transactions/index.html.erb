@@ -1,0 +1,23 @@
+<h2>LIST OF PARKING TRANSACTIONS</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Garage</th>
+      <th scope="col">Floor id</th>
+      <th scope="col">Active</th>
+      <th scope="col">Ticket number</th>
+    <tr>
+  </thead>
+<tbody>
+  <% @parking_transactions.each do |parking_transaction| %>
+    <tr class='<%= "bg-danger text-white" unless parking_transaction.active %>'>
+      <th scope="row"><%= parking_transaction.id %></th>
+      <td><%= parking_transaction.garage.name %></td>
+      <td><%= parking_transaction.floor.name %></td>
+      <td><%= parking_transaction.active %></td>
+      <td><%= parking_transaction.ticket %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

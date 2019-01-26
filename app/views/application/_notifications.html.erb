@@ -1,0 +1,6 @@
+<% flash.each do |key, value| %>
+  <% next unless [:info, :success, :danger].include?(key.to_sym) %>
+  <div class="alert alert-<%= key %>" role="alert">
+    <%= value %>
+  </div>
+<% end %>

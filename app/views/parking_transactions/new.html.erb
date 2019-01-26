@@ -1,0 +1,18 @@
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <% if @floors.none? %>
+      <h1 class="display-4">Garage is full, no open parking spots at this time, sorry!</h1>
+    <% else %>
+      <h1 class="display-4">Generate the ticket by pressing check in button</h1>
+      <hr class='my-4'>
+      <%= form_for @parking_transaction do |f| %>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Select Floor - Garage</label>
+          <%= f.select :floor_id, @floors.collect{ |fl| ["Floor: #{fl.name} - Garage: #{fl.garage.name}", fl.id] } %>
+        </div>
+        <%= f.submit "Check in", class: 'btn btn-primary' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

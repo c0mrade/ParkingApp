@@ -1,0 +1,23 @@
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to the parking administration dashboard</h1>
+  <p class="lead">Please find the data summary below</p>
+  <hr class="my-4">
+  <button type="button" class="btn btn-primary">
+      Number of garages <span class="badge badge-light"><%= Garage.count %></span>
+  </button>
+  <button type="button" class="btn btn-primary">
+      Overal Garage(s) occupancy <span class="badge badge-light"><%= garage_occupancy_ratio %></span>
+  </button>
+  <button type="button" class="btn btn-primary">
+      Number of floors <span class="badge badge-light"><%= Floor.count %></span>
+  </button>
+  <button type="button" class="btn btn-primary">
+      Active parking sessions <span class="badge badge-light"><%= ParkingTransaction.active.count %></span>
+  </button>
+  <button type="button" class="btn btn-primary">
+      Completed parking sessions <span class="badge badge-light"><%= ParkingTransaction.inactive.count %></span>
+  </button>
+  <button type="button" class="btn btn-primary">
+      Available parking spaces <span class="badge badge-light"><%= available_parking_spaces %></span>
+  </button>
+</div>

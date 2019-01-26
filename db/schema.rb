@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_125221) do
+ActiveRecord::Schema.define(version: 2019_01_23_093638) do
 
   create_table "floors", force: :cascade do |t|
     t.integer "number_of_spaces", null: false
     t.integer "garage_id"
+    t.string "name"
     t.index ["garage_id"], name: "index_floors_on_garage_id"
   end
 
