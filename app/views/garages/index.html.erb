@@ -5,6 +5,7 @@
       <th scope="col">#</th>
       <th scope="col">Garage names</th>
       <th scope="col">Number of floors</th>
+      <th scope="col">Capacity</th>
       <th scope="col">Actions</th>
     <tr>
   </thead>
@@ -14,7 +15,8 @@
       <th scope="row"><%= garage.id %></th>
       <td><%= garage.name %></td>
       <td><%= garage.floor_count %></td>
-      <td>Edit | <%= link_to 'Delete', garage_path(garage), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= garage.number_of_spaces %></td>
+      <td><%= link_to 'Edit', edit_garage_path(garage) %> | <%= link_to 'Delete', garage_path(garage), method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </tbody>

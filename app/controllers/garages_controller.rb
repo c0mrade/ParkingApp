@@ -4,7 +4,7 @@ class GaragesController < ApplicationController
     # if we needed to further optimize this page
     @garages = Garage
                .joins(:floors)
-               .select('garages.*', 'COUNT("floors.id") AS floor_count')
+               .select('garages.*', 'COUNT("floors.id") AS floor_count', 'sum(floors.number_of_spaces) as number_of_spaces')
                .group('garages.id')
   end
 
@@ -14,7 +14,15 @@ class GaragesController < ApplicationController
   end
 
   def create
-    binding.pry
+    @garage = Garage.new(garage_params)
+
+    if @garage&.save
+      flash[:success] = 'Successfully added garage!'
+    else
+      flash[:danger] = 'Could not add garage'
+    end
+
+    redirect_to garages_path
   end
 
   def destroy
@@ -30,7 +38,7 @@ class GaragesController < ApplicationController
   end
 
   def edit
-
+    @garage = Garage.find_by(id: params[:id])
   end
 
   private
