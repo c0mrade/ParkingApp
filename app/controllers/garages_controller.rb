@@ -1,4 +1,6 @@
 class GaragesController < ApplicationController
+  before_action :fetch_garage, only: [:update, :destroy, :edit]
+
   def index
     # We could have also used the counter cache here
     # if we needed to further optimize this page
@@ -26,9 +28,7 @@ class GaragesController < ApplicationController
   end
 
   def destroy
-    @garage = Garage.find_by(id: params[:id])
-
-    if @garage&.destroy
+    if @garage.destroy
       flash[:success] = 'Successfully deleted garage!'
     else
       flash[:danger] = 'Cannot delete garage with active parking, please check out first!'
@@ -37,11 +37,23 @@ class GaragesController < ApplicationController
     redirect_to garages_path
   end
 
-  def edit
-    @garage = Garage.find_by(id: params[:id])
+  def edit; end
+
+  def update
+    if @garage.update(garage_params)
+      flash[:success] = 'Successfully updated garage!'
+    else
+      render :edit
+    end
+
+    redirect_to garages_path
   end
 
   private
+
+  def fetch_garage
+    @garage = Garage.find(params[:id])
+  end
 
   def garage_params
     params.require(:garage).permit(

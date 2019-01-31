@@ -3,9 +3,11 @@
     <h1 class="display-4">Edit <%= @garage.name %> garage: </h1>
       <hr class='my-4'>
       <%= form_for @garage do |f| %>
-        <% @garage.floors.each do |floor| %>
-          <%= render 'fields', f: f %>
+        <%= render 'fields', f: f %>
+        <%= f.fields_for :floors do |builder| %>
+          <%= render 'application/floor_fields', f: builder %>
         <% end %>
+        <%= link_to_add_fields 'Add Floor', f, :floors %>
         <div class="form-group">
           <%= f.submit "Update", class: 'btn btn-primary' %>
         </div>
