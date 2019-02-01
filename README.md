@@ -8,8 +8,7 @@ Parking administration fully functional, demo app.
 
 - Setup
 
-  git clone https://github.com/c0mrade/ParkingApp.git
-  cd ParkingApp
+  git clone https://github.com/c0mrade/ParkingApp.git && cd ParkingApp
 
   Install the correct ruby version and necessary gems:
 
