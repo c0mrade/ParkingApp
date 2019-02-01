@@ -1,5 +1,6 @@
 class GaragesController < ApplicationController
   before_action :fetch_garage, only: [:update, :destroy, :edit]
+  before_action :verify_update_params, only: [:update]
 
   def index
     # We could have also used the counter cache here
@@ -20,11 +21,10 @@ class GaragesController < ApplicationController
 
     if @garage&.save
       flash[:success] = 'Successfully added garage!'
+      redirect_to garages_path
     else
-      flash[:danger] = 'Could not add garage'
+      render :new
     end
-
-    redirect_to garages_path
   end
 
   def destroy
@@ -50,6 +50,15 @@ class GaragesController < ApplicationController
   end
 
   private
+
+  def verify_update_params
+    floors_attributes = garage_params['floors_attributes']
+    if floors_attributes.keys.size == 1 &&
+      floors_attributes.values.find{ |floor| floor['_destroy'] == '1' }
+      @garage.errors[:base] << 'Garage cannot exist without any floors'
+      return render :edit
+    end
+  end
 
   def fetch_garage
     @garage = Garage.find(params[:id])

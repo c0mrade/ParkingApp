@@ -5,7 +5,7 @@
       <%= form_for @garage do |f| %>
         <%= render 'fields', f: f %>
         <%= f.fields_for :floors do |builder| %>
-          <%= render 'application/floor_fields', f: builder %>
+          <%= render 'shared/floor_fields', f: builder %>
         <% end %>
         <%= link_to_add_fields 'Add Floor', f, :floors %>
         <div class="form-group">
