@@ -9,10 +9,10 @@ describe ParkingTransaction, type: :model do
     end
 
     context 'garage at single spot left' do
-      # Default garage capacity in factorybot factory is 5
+      # With 2 floors each with 2 space capacity
       # plus one we created above
       let!(:parking_transactions) do
-        FactoryBot.create_list(:parking_transaction, 3, floor: parking_transaction.floor)
+        FactoryBot.create_list(:parking_transaction, 2, floor: parking_transaction.floor)
       end
 
       it 'allows for creation of one more parking_transaction' do
@@ -23,7 +23,7 @@ describe ParkingTransaction, type: :model do
 
     context 'no parking spots left on single floor' do
       let!(:parking_transactions) do
-        FactoryBot.create_list(:parking_transaction, 4, floor: parking_transaction.floor)
+        FactoryBot.create_list(:parking_transaction, 3, floor: parking_transaction.floor)
       end
       let(:new_parking_transaction) { FactoryBot.build(:parking_transaction, floor: parking_transaction.floor) }
 
@@ -39,7 +39,7 @@ describe ParkingTransaction, type: :model do
     context 'no parking spots left on two floors' do
       # first floor is full
       let!(:parking_transactions) do
-        FactoryBot.create_list(:parking_transaction, 4, floor: parking_transaction.floor)
+        FactoryBot.create_list(:parking_transaction, 3, floor: parking_transaction.floor)
       end
       # with 3 parking spots, all occupied
       let(:second_floor) do

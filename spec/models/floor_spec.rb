@@ -8,13 +8,23 @@ describe Floor, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :number_of_spaces }
-  end
 
-  describe '.capacity' do
-    let(:garage) { FactoryBot.create(:garage) }
-    let!(:floors) { FactoryBot.create_list(:floor, 2, number_of_spaces: 3, garage: garage) }
-    it 'returns 6 as the garage capacity' do
-      expect(garage.capacity).to eq(6)
+    context 'floor needs to be vacated before destroying' do
+      let(:floor) { FactoryBot.create(:floor) }
+
+      context 'Partially filled floor' do
+        let!(:parking_transactions) { FactoryBot.create_list(:parking_transaction, 2, floor: floor) }
+
+        it 'destroy method returns false indicating record is not destroyed' do
+          expect(floor.destroy).to be_falsy
+        end
+      end
+
+      context 'Empty floor' do
+        it 'destroy method returns true indicating record is destroyed' do
+          expect(floor.destroy).to be_truthy
+        end
+      end
     end
   end
 end

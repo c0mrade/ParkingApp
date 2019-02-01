@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :parking_transaction do
-    association :floor, factory: :floor
+    floor
   end
 end

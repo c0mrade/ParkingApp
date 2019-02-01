@@ -25,6 +25,8 @@ class ParkingTransaction < ApplicationRecord
   end
 
   def garage_full
+    # not in the direct relation, data could be out of sync without reload
+    garage.reload
     if ParkingTransaction.active.where(floor: garage.floors).count == garage.capacity
       errors[:base] << 'Garage is full'
     end
